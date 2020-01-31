@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看课表</title>
+</head>
+<body>
+
+<style>
+    table, tr, td {
+        border: solid 1px lightblue;
+    }
+</style>
+    <h3>  {{ classname_name }} </h3>
+    <table id="class_tbl">
+        <tr>
+            <td>
+                课程
+            </td>
+            <td>
+                课时
+            </td>
+            <td>
+                上课时间（天）
+            </td>
+            <td>
+                教师
+            </td>
+            <td>
+                上课时间段
+            </td>
+        </tr>
+
+        {% for timetbl in time_table %}
+
+            <tr>
+                <td>
+                    {{ timetbl.classcourse }}
+                </td>
+                <td>
+                    {{ timetbl.classsubjecttime }}
+                </td>
+                <td>
+                    {{ timetbl.classsubday }}
+
+                </td>
+                <td>
+                   {{ timetbl.classteacher }}
+
+                </td>
+                {#            <td>#}
+                {##}
+                {#            {% if course.priority is 1%}#}
+                {#                {{ classname_id|get_class_join_time}}#}
+                {#            {% else %}#}
+                {#                {{ course.priority|get_class_join_start_time:classname_id}}#}
+                {#                {% endif %}#}
+                {#            {{ course.priority|get_subject_end_time:classname_id}}#}
+                {#        </td>#}
+                <td>
+                    {{ timetbl.classtime }}
+
+                </td>
+            </tr>
+
+        {% endfor %}
+
+
+    </table>
+
+</body>
+</html>

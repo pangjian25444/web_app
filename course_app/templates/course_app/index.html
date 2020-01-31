@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>排课系统首页</title>
+</head>
+<body>
+
+<style>
+    table, tr, td {
+        border: solid 1px lightblue;
+    }
+</style>
+
+<table border="0" cellspacing="1" cellpadding="0">
+
+<tr>
+    <td>班级</td>
+    <td>课程类型</td>
+    <td>开班时间</td>
+    <td>查看课表</td>
+    <td>修改课表</td>
+    <td>生成课表</td>
+</tr>
+
+    {% for class_name in class_li %}
+        <tr>
+
+        <td>{{ class_name.name }}</td>
+        <td>{{ class_name.course }}</td>
+        <td>{{ class_name.join_time }}</td>
+        <td><a href="{% url "course_app:search" class_name.name %}"> 查看课表</a></td>
+        <td><a href=""> 修改课表</a></td>
+        <td><a href="{% url "course_app:add" class_name.id%}"> 生成课表</a></td>
+        </tr>
+    {% endfor %}
+
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生成课表</title>
+</head>
+<body>
+
+<style>
+    table, tr, td {
+        border: solid 1px lightblue;
+    }
+</style>
+
+<form method="post" action="{% url "course_app:save_info"  classname_id %}" onsubmit="">
+    {% csrf_token %}
+
+    <h3>  {{ classname_name }} </h3>
+    <table id="class_tbl">
+        <tr>
+            <td>
+                课程
+            </td>
+            <td>
+                课时
+            </td>
+            <td>
+                上课时间（天）
+            </td>
+            <td>
+                教师
+            </td>
+            <td>
+                上课时间段
+            </td>
+        </tr>
+
+
+
+        {% for course in  course_order_li %}
+
+            <tr>
+                <td>
+                    <input name="classcourse" value="{{ course.subject }}" readonly="readonly"
+                           style="border: 0px;outline:none;cursor: pointer;" size="15">
+                </td>
+                <td>
+                    <input name="classsubjecttime" value="{{ course.subject_time }}" readonly="readonly"
+                           style="border: 0px;outline:none;cursor: pointer;" size="5">
+                </td>
+                <td>
+                    <input name="classsubday" value="{{ course.subject_time|subjecttime_to_date }}" readonly="readonly"
+                           style="border: 0px;outline:none;cursor: pointer;" size="5">
+
+                </td>
+                <td>
+                    <input name="classteacher" value="{{ course.subject_id|get_teacher:classname_id }}" readonly="readonly"
+                           style="border: 0px;outline:none;cursor: pointer;" size="10">
+
+                </td>
+                {#            <td>#}
+                {##}
+                {#            {% if course.priority is 1%}#}
+                {#                {{ classname_id|get_class_join_time}}#}
+                {#            {% else %}#}
+                {#                {{ course.priority|get_class_join_start_time:classname_id}}#}
+                {#                {% endif %}#}
+                {#            {{ course.priority|get_subject_end_time:classname_id}}#}
+                {#        </td>#}
+                <td>
+                    <input name="classtime" value="{{ course.priority|get_subject_start_end_time:classname_id }}"
+                           readonly="readonly"
+                           style="border: 0px;outline:none;cursor: pointer;" size="20">
+
+                </td>
+            </tr>
+
+        {% endfor %}
+
+
+    </table>
+
+    <button type="submit">保存</button>
+</form>
+
+</body>
+</html>
